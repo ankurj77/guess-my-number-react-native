@@ -1,8 +1,17 @@
-import {Text} from "react-native";
+import Root from "../components/ui/Root";
+import Card from "../components/ui/Card";
 
-function GameOver() {
+function GameOver({replayHandler, exitHandler}) {
   return (
-    <Text>Game Over!</Text>
+    <Root title={"Game Over!"}>
+      <Card
+        instruction={"Computer Guessed!"}
+        lButtonText={"Replay"}
+        rButtonText={"Exit"}
+        lButtonHandler={replayHandler}
+        rButtonHandler={exitHandler}
+      />
+    </Root>
   );
 }
 
