@@ -1,16 +1,18 @@
 import Root from "../components/ui/Root";
-import Card from "../components/ui/Card";
+import PrimaryButton from "../components/ui/PrimaryButton";
+import {View} from "react-native";
+import Typography from "../components/ui/Typography";
 
-function GameOver({replayHandler, exitHandler}) {
+function GameOver({replayHandler, numRounds, userNumber}) {
   return (
     <Root title={"Game Over!"}>
-      <Card
-        instruction={"Computer Guessed!"}
-        lButtonText={"Replay"}
-        rButtonText={"Exit"}
-        lButtonHandler={replayHandler}
-        rButtonHandler={exitHandler}
-      />
+      <View>
+        <Typography>No. of rounds: {numRounds}</Typography>
+      </View>
+      <View>
+        <Typography>Number entered: {userNumber}</Typography>
+      </View>
+      <PrimaryButton onPress={replayHandler}>Start New Game</PrimaryButton>
     </Root>
   );
 }

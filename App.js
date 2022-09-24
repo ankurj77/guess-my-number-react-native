@@ -5,13 +5,13 @@ import {LinearGradient} from "expo-linear-gradient";
 import {useState} from "react";
 import Colors from "./constants/colors";
 import GameOver from "./screens/GameOver";
-import RNExitApp from "react-native-exit-app";
 import {useFonts} from "expo-font";
 import AppLoading from "expo-app-loading";
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
   const [gameOver, setGameOver] = useState(true);
+  const [guessRounds, setGuessRounds] = useState(0);
 
   const [fontsLoaded] = useFonts({
     'open-sans': require("./assets/fonts/OpenSans-Regular.ttf"),
@@ -27,23 +27,21 @@ export default function App() {
     setGameOver(false);
   }
 
-  function gameOverHandler() {
+  function gameOverHandler(totalRounds) {
     setGameOver(true);
+    setGuessRounds(totalRounds);
   }
 
   function replayHandler() {
-    setUserNumber();
-  }
-
-  function exitHandler() {
-    RNExitApp.exitApp();
+    setUserNumber(null);
+    setGuessRounds(0);
   }
 
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler}/>;
 
   if (userNumber) {
     if (gameOver) {
-      screen = <GameOver replayHandler={replayHandler} exitHandler={exitHandler} />
+      screen = <GameOver replayHandler={replayHandler} userNumber={userNumber} numRounds={guessRounds} />
     } else {
       screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
     }
